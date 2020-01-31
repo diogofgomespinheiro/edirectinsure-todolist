@@ -12,7 +12,7 @@ router.get("/me", auth, (req, res) => {
   res.send("User Route Working");
 });
 
-// @route   GET users/login
+// @route   POST users/login
 // @desc    Login user
 // @access  public
 router.post(
@@ -27,7 +27,7 @@ router.post(
   userController.authenticateUser
 );
 
-// @route   GET users/register
+// @route   POST users/register
 // @desc    Register user
 // @access  public
 router.post(

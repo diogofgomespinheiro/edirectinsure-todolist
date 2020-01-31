@@ -15,6 +15,7 @@ app.use(cors());
 
 //Routes
 app.use("/users", require("./routes/users"));
+app.use("/projects", require("./routes/projects"));
 
 const PORT = process.env.PORT || 5000;
 

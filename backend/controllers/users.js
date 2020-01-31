@@ -50,3 +50,32 @@ exports.registerUser = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
+exports.authenticateUser = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+    }
+
+    const isMatchPasswords = await bcrypt.compare(password, user.password);
+
+    if (!isMatchPasswords) {
+      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+    }
+
+    generateToken({ userId: user._id.toString() }, res);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};

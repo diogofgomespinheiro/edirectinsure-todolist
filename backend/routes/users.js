@@ -15,9 +15,17 @@ router.get("/me", auth, (req, res) => {
 // @route   GET users/login
 // @desc    Login user
 // @access  public
-router.post("/login", (req, res) => {
-  res.send("Login Route Working");
-});
+router.post(
+  "/login",
+  [
+    check("email", "Please include a valid email").isEmail(),
+    check(
+      "password",
+      "Please enter a password with 6 or more characters"
+    ).isLength({ min: 6 })
+  ],
+  userController.authenticateUser
+);
 
 // @route   GET users/register
 // @desc    Register user

@@ -1,0 +1,8 @@
+{
+  "name": "edirect-todolist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/diogofgomespinheiro/edirectinsure-todolist.git",
+  "author": "Diogo Pinheiro <diogo.fgomes.pinheiro@gmail.com>",
+  "license": "MIT"
+}

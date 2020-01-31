@@ -4,5 +4,28 @@
   "main": "index.js",
   "repository": "https://github.com/diogofgomespinheiro/edirectinsure-todolist.git",
   "author": "Diogo Pinheiro <diogo.fgomes.pinheiro@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "commit": "git-cz"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "3.1.0",
+    "husky": "^4.2.1",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

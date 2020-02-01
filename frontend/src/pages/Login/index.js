@@ -7,14 +7,14 @@ import { Redirect } from "react-router-dom";
 import FormInput from "../../components/FormInput";
 
 //Redux
-import { login } from "../../store/modules/auth/actions";
+import { auth } from "../../store/modules/auth/actions";
 
 const Login = ({ history }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const dispatch = useDispatch();
 
-  const onLogin = () => dispatch(login(formData, history));
+  const onAuth = () => dispatch(auth(formData, history, "users/login"));
 
   const { email, password } = formData;
 
@@ -26,7 +26,7 @@ const Login = ({ history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onLogin();
+    onAuth();
   };
 
   if (localStorage.getItem("token")) {

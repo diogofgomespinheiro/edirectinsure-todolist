@@ -1,5 +1,5 @@
 //Library imports
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
@@ -10,14 +10,19 @@ import Alert from "./components/Alert";
 
 //Redux
 import store from "./store/store";
+import { getUser } from "./store/modules/auth/actions";
 
 //Style imports
 import "./App.scss";
 
 function App() {
+  useEffect(() => {
+    store.dispatch(getUser(localStorage.getItem("token")));
+  }, []);
+
   return (
     <Provider store={store}>
-      <div className="container">
+      <div className="main-container">
         <BrowserRouter>
           <Header />
           <div className="content">

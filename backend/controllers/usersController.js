@@ -78,7 +78,7 @@ exports.authenticateUser = async (req, res) => {
 
 exports.getUserData = async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
+    const user = await User.findById(req.userId).select("-password");
 
     if (!user) return res.status(400).json({ msg: "User not found" });
 

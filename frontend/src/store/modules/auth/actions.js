@@ -1,40 +1,37 @@
 import authActionTypes from "./types";
-import axios from "../../../config/axios";
+import axios, { setAuthToken } from "../../../config/axios";
 import { setAlert } from "../alert/actions";
 
-const loginStart = () => {
+const authSuccess = payload => {
   return {
-    type: authActionTypes.LOGIN_START
-  };
-};
-
-const loginSuccess = payload => {
-  return {
-    type: authActionTypes.LOGIN_SUCCESS,
+    type: authActionTypes.AUTH_SUCCESS,
     payload
   };
 };
 
-const loginFailed = () => {
+const authFailed = () => {
   return {
-    type: authActionTypes.LOGIN_FAILED
+    type: authActionTypes.AUTH_FAILED
   };
 };
 
-export const login = ({ email, password }, history) => async dispatch => {
-  dispatch(loginStart());
-
+export const auth = (
+  { email, password, name = undefined },
+  history,
+  url
+) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"
     }
   };
 
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({ email, password, name });
 
   try {
-    const res = await axios.post("/users/login", body, config);
-    dispatch(loginSuccess(res.data));
+    const res = await axios.post(url, body, config);
+    dispatch(authSuccess(res.data));
+    setAuthToken(res.data.token);
     history.push("/projects");
   } catch (err) {
     const errors = err.response.data.errors;
@@ -42,6 +39,43 @@ export const login = ({ email, password }, history) => async dispatch => {
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
     }
-    dispatch(loginFailed());
+    dispatch(authFailed());
   }
+};
+
+export const register = ({ email, password }) => async dispatch => {};
+
+const getUserSuccess = payload => {
+  return {
+    type: authActionTypes.GET_USER_SUCCESS,
+    payload
+  };
+};
+
+const getUserFailed = () => {
+  return {
+    type: authActionTypes.GET_USER_FAILED
+  };
+};
+
+export const getUser = token => async dispatch => {
+  if (token) {
+    setAuthToken(token);
+    try {
+      const res = await axios.get("/users/me");
+      console.log(res.data);
+      dispatch(getUserSuccess(res.data));
+    } catch (err) {
+      dispatch(getUserFailed());
+    }
+  } else {
+    setAuthToken();
+    dispatch(getUserFailed());
+  }
+};
+
+export const logout = () => {
+  return {
+    type: authActionTypes.LOGOUT
+  };
 };

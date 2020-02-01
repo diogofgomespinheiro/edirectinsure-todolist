@@ -1,17 +1,29 @@
 //Library imports
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 //Component imports
 import FormInput from "../../components/FormInput";
 
+//Redux
+import { auth } from "../../store/modules/auth/actions";
+import { setAlert } from "../../store/modules/alert/actions";
+
 const Register = ({ history }) => {
   const [formData, setFormData] = useState({
     email: "",
+    name: "",
     password: "",
     confirmPassword: ""
   });
 
-  const { email, password, confirmPassword } = formData;
+  const dispatch = useDispatch();
+
+  const onAuth = () => dispatch(auth(formData, history, "users/register"));
+  const onSetAlert = (msg, type) => dispatch(setAlert(msg, type));
+
+  const { email, name, password, confirmPassword } = formData;
 
   const handleChange = e => {
     const { value, name } = e.target;
@@ -21,8 +33,16 @@ const Register = ({ history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    history.push("/projects");
+    if (password === confirmPassword) {
+      onAuth();
+    } else {
+      onSetAlert("The password´s dont match", "danger");
+    }
   };
+
+  if (localStorage.getItem("token")) {
+    return <Redirect to="/projects" />;
+  }
 
   return (
     <div className="auth-container">
@@ -37,6 +57,14 @@ const Register = ({ history }) => {
           required
         />
         <FormInput
+          type="text"
+          name="name"
+          value={name}
+          handleChange={handleChange}
+          label="Name"
+          required
+        />
+        <FormInput
           type="password"
           name="password"
           value={password}
@@ -45,7 +73,7 @@ const Register = ({ history }) => {
           required
         />
         <FormInput
-          type="confirmPassword"
+          type="password"
           name="confirmPassword"
           value={confirmPassword}
           handleChange={handleChange}

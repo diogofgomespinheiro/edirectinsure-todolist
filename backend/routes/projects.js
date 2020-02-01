@@ -10,7 +10,7 @@ router.use(auth);
 // @route   GET projects/
 // @desc    Get user projects
 // @access  private
-router.get("/", projectsController.GetUserProjects);
+router.get("/", projectsController.getUserProjects);
 
 // @route   POST projects/
 // @desc    Create project
@@ -22,13 +22,13 @@ router.post(
       .not()
       .isEmpty()
   ],
-  projectsController.CreateProject
+  projectsController.createProject
 );
 
 // @route   DELETE projects/:id
 // @desc    Delete project
 // @access  private
-router.delete("/:id");
+router.delete("/:id", projectsController.deleteProject);
 
 // @route   PUT projects/:id
 // @desc    Edit project

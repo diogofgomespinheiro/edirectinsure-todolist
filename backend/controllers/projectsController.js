@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 
 const Project = require("../models/Project");
 
-exports.GetUserProjects = async (req, res) => {
+exports.getUserProjects = async (req, res) => {
   try {
     const projects = await Project.find({ user: req.userId });
     res.json(projects);
@@ -12,7 +12,7 @@ exports.GetUserProjects = async (req, res) => {
   }
 };
 
-exports.CreateProject = async (req, res) => {
+exports.createProject = async (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -29,6 +29,24 @@ exports.CreateProject = async (req, res) => {
 
     await project.save();
     res.json(project);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+exports.deleteProject = async (req, res) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).json({ msg: "Project not found" });
+
+    if (project.user.toString() !== req.userId)
+      return res
+        .status(401)
+        .json({ msg: "You dont have permission to delete this project" });
+
+    await project.remove();
+    res.json({ msg: "Project removed" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

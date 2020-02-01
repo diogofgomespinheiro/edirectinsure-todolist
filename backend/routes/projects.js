@@ -3,7 +3,7 @@ const router = express.Router();
 const { check } = require("express-validator");
 
 const auth = require("../middleware/auth");
-const projectsController = require("../controllers/projects");
+const projectsController = require("../controllers/projectsController");
 
 router.use(auth);
 
@@ -28,6 +28,7 @@ router.post(
 // @route   DELETE projects/:id
 // @desc    Delete project
 // @access  private
+router.delete("/:id");
 
 // @route   PUT projects/:id
 // @desc    Edit project

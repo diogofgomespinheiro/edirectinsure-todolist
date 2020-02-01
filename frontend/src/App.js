@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 //Component imports
 import Header from "./components/Header";
 import Routes from "./routes";
+import Alert from "./components/Alert";
 
 //Redux
 import store from "./store/store";
@@ -20,6 +21,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <div className="content">
+            <Alert />
             <Routes />
           </div>
         </BrowserRouter>

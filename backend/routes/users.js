@@ -3,14 +3,12 @@ const router = express.Router();
 const { check } = require("express-validator");
 
 const auth = require("../middleware/auth");
-const userController = require("../controllers/users");
+const userController = require("../controllers/usersController");
 
 // @route   GET users/me
 // @desc    Get user data
 // @access  Private
-router.get("/me", auth, (req, res) => {
-  res.send("User Route Working");
-});
+router.get("/me", auth, userController.getUserData);
 
 // @route   POST users/login
 // @desc    Login user

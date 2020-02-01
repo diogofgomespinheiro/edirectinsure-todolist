@@ -46,10 +46,20 @@ router.put(
 // @route   POST projects/:id/tasks
 // @desc    Add task to project
 // @access  private
+router.post(
+  "/:id/tasks",
+  [
+    check("description", "Description is required")
+      .not()
+      .isEmpty()
+  ],
+  projectsController.addTaskToProject
+);
 
 // @route   DELETE projects/:id/tasks/:task_id
 // @desc    Delete task from project
 // @access  private
+router.delete("/:id/tasks/:task_id", projectsController.deleteTaskFromProject);
 
 // @route   PUT projects/:id/tasks/:task_id
 // @desc    Edit task from project

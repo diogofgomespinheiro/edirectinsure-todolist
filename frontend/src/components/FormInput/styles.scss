@@ -1,0 +1,18 @@
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    font-size: 16px;
+  }
+
+  input {
+    margin-top: 5px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+  }
+}

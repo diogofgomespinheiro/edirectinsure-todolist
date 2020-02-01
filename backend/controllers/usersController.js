@@ -4,10 +4,11 @@ const { validationResult } = require("express-validator");
 
 const User = require("../models/User");
 
-const generateToken = (params = {}, res) => {
+const generateToken = (params = {}, res, user) => {
+  user.password = undefined;
   return jwt.sign(params, process.env.JWT_SECRET, (err, token) => {
     if (err) console.error(err);
-    res.json({ token });
+    res.json({ token, user });
   });
 };
 
@@ -39,7 +40,7 @@ exports.registerUser = async (req, res) => {
 
     await user.save();
 
-    generateToken({ userId: user._id.toString() }, res);
+    generateToken({ userId: user._id.toString() }, res, user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -68,7 +69,7 @@ exports.authenticateUser = async (req, res) => {
       return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
     }
 
-    generateToken({ userId: user._id.toString() }, res);
+    generateToken({ userId: user._id.toString() }, res, user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

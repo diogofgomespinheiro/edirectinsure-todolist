@@ -1,11 +1,20 @@
 //Library imports
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 //Component imports
 import FormInput from "../../components/FormInput";
 
+//Redux
+import { login } from "../../store/modules/auth/actions";
+
 const Login = ({ history }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const dispatch = useDispatch();
+
+  const onLogin = () => dispatch(login(formData, history));
 
   const { email, password } = formData;
 
@@ -17,8 +26,12 @@ const Login = ({ history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    history.push("/projects");
+    onLogin();
   };
+
+  if (localStorage.getItem("token")) {
+    return <Redirect to="/projects" />;
+  }
 
   return (
     <div className="auth-container">

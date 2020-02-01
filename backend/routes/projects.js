@@ -33,6 +33,15 @@ router.delete("/:id", projectsController.deleteProject);
 // @route   PUT projects/:id
 // @desc    Edit project
 // @access  private
+router.put(
+  "/:id",
+  [
+    check("name", "Name is required")
+      .not()
+      .isEmpty()
+  ],
+  projectsController.updateProject
+);
 
 // @route   POST projects/:id/tasks
 // @desc    Add task to project

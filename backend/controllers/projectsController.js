@@ -52,3 +52,34 @@ exports.deleteProject = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+exports.updateProject = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const project = await Project.findById(req.params.id);
+    if (!project)
+      return res.status(404).json({ errors: [{ msg: "Project not found" }] });
+
+    if (project.user.toString() !== req.userId)
+      return res
+        .status(401)
+        .json({
+          errors: [{ msg: "You dont have permission to update this project" }]
+        });
+
+    project.name = req.body.name;
+    await project.save;
+
+    res.json(project);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId")
+      return res.status(404).json({ errors: [{ msg: "Project not found" }] });
+    res.status(500).send("Server Error");
+  }
+};

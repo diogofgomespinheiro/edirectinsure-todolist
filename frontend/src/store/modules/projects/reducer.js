@@ -28,6 +28,25 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         projects: [action.payload, ...state.projects]
       };
+    case projectActionTypes.DELETE_PROJECT_SUCCESS:
+      const deletedProjectArray = state.projects.filter(
+        project => project._id !== action.payload
+      );
+      return {
+        ...state,
+        projects: deletedProjectArray
+      };
+    case projectActionTypes.EDIT_PROJECT_SUCCESS:
+      const updatedProjectArray = state.projects.map(project => {
+        if (project._id === action.payload._id) {
+          project = action.payload;
+        }
+        return project;
+      });
+      return {
+        ...state,
+        projects: updatedProjectArray
+      };
     default:
       return state;
   }

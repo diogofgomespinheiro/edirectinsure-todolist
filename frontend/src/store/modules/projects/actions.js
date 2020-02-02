@@ -54,3 +54,43 @@ export const addProject = name => async dispatch => {
     dispatch(setAlert("There was an error, try again please.", "danger"));
   }
 };
+
+const deleteProjectSuccess = payload => {
+  return {
+    type: projectActionTypes.DELETE_PROJECT_SUCCESS,
+    payload
+  };
+};
+
+export const deleteProject = id => async dispatch => {
+  try {
+    await axios.delete(`/projects/${id}`);
+    dispatch(deleteProjectSuccess(id));
+  } catch (err) {
+    dispatch(setAlert("There was an error, try again please.", "danger"));
+  }
+};
+
+const editProjectSuccess = payload => {
+  return {
+    type: projectActionTypes.EDIT_PROJECT_SUCCESS,
+    payload
+  };
+};
+
+export const editProject = (id, name) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  const body = JSON.stringify({ name });
+
+  try {
+    const res = await axios.put(`/projects/${id}`, body, config);
+    dispatch(editProjectSuccess(res.data));
+  } catch (err) {
+    dispatch(setAlert("There was an error, try again please.", "danger"));
+  }
+};

@@ -73,7 +73,7 @@ exports.updateProject = async (req, res) => {
       });
 
     project.name = req.body.name;
-    await project.save;
+    await project.save();
 
     res.status(200).json(project);
   } catch (err) {

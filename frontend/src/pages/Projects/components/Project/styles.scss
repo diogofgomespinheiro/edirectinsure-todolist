@@ -4,6 +4,33 @@
 
   .project-header {
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
     background-color: #eeeeee;
+
+    .buttons-container {
+      img {
+        cursor: pointer;
+
+        &:first-child {
+          margin-right: 5px;
+        }
+      }
+    }
   }
+}
+
+.Modal {
+  position: absolute;
+  height: 300px;
+  width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 9px 3px rgba(209, 209, 209, 1);
+  background-color: white;
+  z-index: 100;
+  padding: 30px;
 }

@@ -7,7 +7,7 @@ exports.getUserProjects = async (req, res) => {
     const projects = await Project.find({ user: req.userId }).sort({
       creation_date: -1
     });
-    res.json(projects);
+    res.status(200).json(projects);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -30,7 +30,7 @@ exports.createProject = async (req, res) => {
     });
 
     await project.save();
-    res.json(project);
+    res.status(200).json(project);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -48,7 +48,7 @@ exports.deleteProject = async (req, res) => {
         .json({ msg: "You dont have permission to delete this project" });
 
     await project.remove();
-    res.json({ msg: "Project removed" });
+    res.status(200).json({ msg: "Project removed" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

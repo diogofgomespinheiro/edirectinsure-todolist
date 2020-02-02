@@ -8,7 +8,7 @@ const generateToken = (params = {}, res, user) => {
   user.password = undefined;
   return jwt.sign(params, process.env.JWT_SECRET, (err, token) => {
     if (err) console.error(err);
-    res.json({ token, user });
+    res.status(200).json({ token, user });
   });
 };
 
@@ -82,7 +82,7 @@ exports.getUserData = async (req, res) => {
 
     if (!user) return res.status(400).json({ msg: "User not found" });
 
-    res.json(user);
+    res.status(200).json(user);
   } catch {
     console.error(err.message);
     res.status(500).send("Server Error");

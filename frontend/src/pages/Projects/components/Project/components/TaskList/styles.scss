@@ -1,0 +1,9 @@
+.task-list {
+  flex-grow: 1;
+
+  h2 {
+    &:nth-child(2) {
+      margin-top: 20px;
+    }
+  }
+}

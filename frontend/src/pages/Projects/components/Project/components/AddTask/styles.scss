@@ -1,0 +1,23 @@
+.add-task {
+  margin: 20px 0;
+  display: flex;
+
+  input {
+    border: 1px solid rgb(214, 214, 214);
+    margin-right: 5px;
+  }
+
+  button {
+    margin-bottom: 20px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #07b626;
+    color: white;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

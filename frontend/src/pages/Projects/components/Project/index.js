@@ -9,6 +9,8 @@ import trash from "../../../../assets/bin.svg";
 //Component imports
 import DeleteProject from "./components/DeleteProject";
 import EditProject from "./components/EditProject";
+import TaskList from "./components/TaskList";
+import AddTask from "./components/AddTask";
 
 //Style imports
 import "./styles.scss";
@@ -61,9 +63,9 @@ const Project = ({ project }) => {
         </div>
       </div>
       <div className="project-content">
-        <h2>To Do</h2>
-        <h2>Done</h2>
+        <TaskList />
         <hr />
+        <AddTask />
       </div>
     </div>
   );

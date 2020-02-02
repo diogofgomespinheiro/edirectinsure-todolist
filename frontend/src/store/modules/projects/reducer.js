@@ -47,6 +47,11 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         projects: updatedProjectArray
       };
+    case projectActionTypes.CLEAR_PROJECTS:
+      return {
+        ...state,
+        projects: []
+      };
     default:
       return state;
   }

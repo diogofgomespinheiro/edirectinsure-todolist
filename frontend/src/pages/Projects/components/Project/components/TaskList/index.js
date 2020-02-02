@@ -57,8 +57,8 @@ const TaskList = ({ tasks, project_id }) => {
           <img
             src={trash}
             alt="delete"
-            height="10"
-            width="10"
+            height="12"
+            width="12"
             onClick={() => onDeleteTask(task._id)}
           />
           {task.finish_date && (

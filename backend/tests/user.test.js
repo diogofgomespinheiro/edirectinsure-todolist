@@ -87,7 +87,7 @@ describe("User Tests", () => {
 });
 
 afterAll(async done => {
-  mongoose.connection.db.dropDatabase();
+  await mongoose.connection.db.dropDatabase();
   mongoose.connection.close();
   done();
 });

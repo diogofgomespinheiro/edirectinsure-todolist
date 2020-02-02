@@ -51,6 +51,8 @@ exports.deleteProject = async (req, res) => {
     res.status(200).json({ msg: "Project removed" });
   } catch (err) {
     console.error(err.message);
+    if (err.kind === "ObjectId")
+      return res.status(404).json({ errors: [{ msg: "Project not found" }] });
     res.status(500).send("Server Error");
   }
 };
@@ -178,7 +180,7 @@ exports.editTaskFromProject = async (req, res) => {
 
     res.status(200).json(project);
   } catch (err) {
-    console.error(err.message);
+    //console.error(err.message);
     if (err.kind === "ObjectId")
       return res.status(404).json({ msg: "Project not found" });
     res.status(500).send("Server Error");

@@ -3,11 +3,15 @@
   display: flex;
 
   .projects-container {
-    width: 70%;
-    background-color: red;
+    width: 65%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 20px;
   }
 
   .projects-form-container {
-    width: 30%;
+    width: 35%;
   }
 }

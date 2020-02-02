@@ -4,6 +4,11 @@ const instance = axios.create({
   baseURL: "http://localhost:5000"
 });
 
+if (localStorage.getItem("token")) {
+  instance.defaults.headers.common["Authorization"] =
+    "Bearer " + localStorage.getItem("token");
+}
+
 export const setAuthToken = token => {
   if (token) {
     instance.defaults.headers.common["Authorization"] = "Bearer " + token;

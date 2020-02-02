@@ -15,9 +15,9 @@ import { getUser } from "./store/modules/auth/actions";
 //Style imports
 import "./App.scss";
 
-function App() {
+const App = () => {
   useEffect(() => {
-    store.dispatch(getUser(localStorage.getItem("token")));
+    store.dispatch(getUser());
   }, []);
 
   return (
@@ -33,6 +33,6 @@ function App() {
       </div>
     </Provider>
   );
-}
+};
 
 export default App;

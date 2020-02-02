@@ -58,17 +58,11 @@ const getUserFailed = () => {
   };
 };
 
-export const getUser = token => async dispatch => {
-  if (token) {
-    setAuthToken(token);
-    try {
-      const res = await axios.get("/users/me");
-      console.log(res.data);
-      dispatch(getUserSuccess(res.data));
-    } catch (err) {
-      dispatch(getUserFailed());
-    }
-  } else {
+export const getUser = () => async dispatch => {
+  try {
+    const res = await axios.get("/users/me");
+    dispatch(getUserSuccess(res.data));
+  } catch (err) {
     setAuthToken();
     dispatch(getUserFailed());
   }

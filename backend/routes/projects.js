@@ -64,5 +64,6 @@ router.delete("/:id/tasks/:task_id", projectsController.deleteTaskFromProject);
 // @route   PUT projects/:id/tasks/:task_id
 // @desc    Edit task from project
 // @access  private
+router.patch("/:id/tasks/:task_id", projectsController.editTaskFromProject);
 
 module.exports = router;

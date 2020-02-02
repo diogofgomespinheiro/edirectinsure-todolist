@@ -142,3 +142,45 @@ exports.deleteTaskFromProject = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+exports.editTaskFromProject = async (req, res) => {
+  try {
+    let project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).json({ msg: "Project not found" });
+
+    if (project.user.toString() !== req.userId)
+      return res.status(401).json({
+        errors: [
+          { msg: "You dont have permission to edit tasks from this project" }
+        ]
+      });
+
+    const { description, completed, finish_date } = req.body;
+
+    const newTask = project.tasks.find(
+      task => task._id.toString() === req.params.task_id
+    );
+
+    if (!newTask) return res.status(404).json({ msg: "Task not found" });
+
+    description ? (newTask.description = description) : null;
+    completed ? (newTask.completed = completed) : null;
+    finish_date ? (newTask.finish_date = finish_date) : null;
+
+    project.tasks.map(task => {
+      if (task._id.toString() === req.params.task_id) {
+        task = newTask;
+      }
+      return task;
+    });
+
+    project.save();
+
+    res.status(200).json(project);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === "ObjectId")
+      return res.status(404).json({ msg: "Project not found" });
+    res.status(500).send("Server Error");
+  }
+};

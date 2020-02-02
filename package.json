@@ -28,7 +28,5 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "react-modal": "^3.11.1"
-  }
+  "dependencies": {}
 }

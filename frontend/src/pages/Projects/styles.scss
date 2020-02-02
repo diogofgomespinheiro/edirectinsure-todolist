@@ -3,15 +3,32 @@
   display: flex;
 
   .projects-container {
-    width: 65%;
+    width: 60%;
     padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     column-gap: 20px;
     row-gap: 20px;
   }
 
   .projects-form-container {
-    width: 35%;
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .container {
+    flex-direction: column-reverse;
+
+    .projects-container {
+      width: 100%;
+      justify-items: center;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .projects-form-container {
+      width: 100%;
+    }
   }
 }

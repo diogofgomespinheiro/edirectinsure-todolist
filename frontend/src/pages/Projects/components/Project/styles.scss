@@ -1,6 +1,9 @@
 .project {
+  display: flex;
+  flex-direction: column;
   border: 1px solid rgb(219, 219, 219);
   border-radius: 5px;
+  max-width: 500px;
 
   .project-header {
     padding: 10px;
@@ -20,10 +23,14 @@
   }
 
   .project-content {
-    height: 100%;
+    flex-grow: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
+
+    hr {
+      margin: 20px 0;
+    }
   }
 }
 

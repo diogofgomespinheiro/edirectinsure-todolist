@@ -37,6 +37,9 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         projects: deletedProjectArray
       };
     case projectActionTypes.EDIT_PROJECT_SUCCESS:
+    case projectActionTypes.ADD_TASK_SUCCESS:
+    case projectActionTypes.DELETE_TASK_SUCCESS:
+    case projectActionTypes.EDIT_TASK_SUCCESS:
       const updatedProjectArray = state.projects.map(project => {
         if (project._id === action.payload._id) {
           project = action.payload;

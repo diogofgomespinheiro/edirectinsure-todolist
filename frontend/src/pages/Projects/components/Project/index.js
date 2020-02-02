@@ -26,6 +26,8 @@ const Project = ({ project }) => {
     toggleModal(true);
   };
 
+  const { tasks } = project;
+
   return (
     <div className="project">
       <div className="project-header">
@@ -63,9 +65,9 @@ const Project = ({ project }) => {
         </div>
       </div>
       <div className="project-content">
-        <TaskList />
+        <TaskList tasks={tasks} project_id={project._id} />
         <hr />
-        <AddTask />
+        <AddTask project_id={project._id} />
       </div>
     </div>
   );

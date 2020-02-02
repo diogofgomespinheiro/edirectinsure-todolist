@@ -1,9 +1,30 @@
 .task-list {
   flex-grow: 1;
 
-  h2 {
-    &:nth-child(2) {
-      margin-top: 20px;
+  .done {
+    margin-top: 20px;
+  }
+
+  .task {
+    margin: 5px 0 5px 10px;
+
+    input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    span {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    img {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    &.completed {
+      color: gray;
+      text-decoration: line-through;
     }
   }
 }

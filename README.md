@@ -1,4 +1,4 @@
-# edirectinsure-todolist
+# todolist
 
 ## Backend
 Make sure to configure mongo uri and jwt token\
